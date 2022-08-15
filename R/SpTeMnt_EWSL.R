@@ -36,29 +36,29 @@ SpTeMnt_EWSL <- function(y,st,type,ARL0=200,lambda=0.1,B=1000,bs=5,T=1,ht=NULL,h
     ## EWKS: lasso weights
     t <- sort(unique(st[,3])); n <- length(t); m <- rep(0,n) 
     for(i in 1:n) {
-        m[i] <- length(which(st[,3]==t[i]))
+      m[i] <- length(which(st[,3]==t[i]))
     }
     MAXm <- max(m); RES <- sx <- sy <- matrix(0,n,MAXm)
     for(i in 1:n) {
-        ids <- which(st[,3]==t[i])
-        len <- length(ids); RES[i,1:len] <- res.mt[ids]
-        sx[i,1:len] <- st[ids,1]; sy[i,1:len] <- st[ids,2]
+      ids <- which(st[,3]==t[i])
+      len <- length(ids); RES[i,1:len] <- res.mt[ids]
+      sx[i,1:len] <- st[ids,1]; sy[i,1:len] <- st[ids,2]
     }
     mu.ewsl <- .Fortran("SpTeEWKS", y=as.matrix(RES), t=as.vector(t), sx=as.matrix(sx),
-                sy=as.matrix(sy), n=as.integer(n), m=as.integer(m),
-                MAXm=as.integer(MAXm), lambda=as.double(lambda), 
-                h=as.double(h), LOO=as.integer(0), 
-                muhat=matrix(as.double(0),n,MAXm))$muhat
+                        sy=as.matrix(sy), n=as.integer(n), m=as.integer(m),
+                        MAXm=as.integer(MAXm), lambda=as.double(lambda), 
+                        h=as.double(h), LOO=as.integer(0), 
+                        muhat=matrix(as.double(0),n,MAXm))$muhat
     varpi1 <- 1/pmax(abs(mu.ewsl),1/n); varpi2 <- matrix(0,n,MAXm)
     for(i in 1:n) {
-        for(j in 1:m[i]) {
-            dist <- rep(0,m[i])
-            for(jj in 1:m[i]) {
-                dist[jj] <- sqrt((sx[i,j]-sx[i,jj])^2+(sy[i,j]-sy[i,jj])^2)
-            }
-            tmp <- dist/h; w <- pmax(0,0.75*(1-tmp^2))
-            varpi2[i,j] <-  mu.ewsl[i,j]-sum(w*mu.ewsl[i,1:m[i]])/sum(w)
+      for(j in 1:m[i]) {
+        dist <- rep(0,m[i])
+        for(jj in 1:m[i]) {
+          dist[jj] <- sqrt((sx[i,j]-sx[i,jj])^2+(sy[i,j]-sy[i,jj])^2)
         }
+        tmp <- dist/h; w <- pmax(0,0.75*(1-tmp^2))
+        varpi2[i,j] <-  mu.ewsl[i,j]-sum(w*mu.ewsl[i,1:m[i]])/sum(w)
+      }
     }
     varpi2 <- pmin(1/pmax(abs(varpi2),1/n),30)/10
     ## process monitoring
@@ -92,7 +92,16 @@ SpTeMnt_EWSL <- function(y,st,type,ARL0=200,lambda=0.1,B=1000,bs=5,T=1,ht=NULL,h
             rowsum.D[i+m[1]] <- sum(D[i+m[1],]^2)
         }
         D <- D[which(rowsum.D!=0),]
-        mu.ewsl[I,1,] <- c(coef(genlasso::genlasso(y=Y,X=X,D=D),lambda=1)$beta)
+        
+        if(dim(D)[1]==0) {
+          mu.ewsl[I,1,] <- c(solve(t(X)%*%X)%*%t(X)%*%Y)
+        } else {
+          X1 <- X%*%solve(t(D)%*%D)%*%t(D)
+          coef <- as.numeric(coef(glmnet::glmnet(x=X1,y=Y,intercept=FALSE,
+                                                 family='gaussian',lambda=1/sqrt(length(Y)))))
+          coef <- coef[-1]
+          mu.ewsl[I,1,] <- solve(t(D)%*%D)%*%t(D)%*%coef
+        }
         INDEX <- rep(1,length(Y))
             
         ## time > 1
@@ -127,7 +136,15 @@ SpTeMnt_EWSL <- function(y,st,type,ARL0=200,lambda=0.1,B=1000,bs=5,T=1,ht=NULL,h
                 rowsum.D[i+m[it]] <- sum(D[i+m[it],]^2)
             }
             D <- D[which(rowsum.D!=0),]
-            mu.ewsl[I,it,] <- c(coef(genlasso::genlasso(y=Y,X=X,D=D),lambda=1)$beta)
+            if(dim(D)[1]==0) {
+              mu.ewsl[I,it,] <- c(solve(t(X)%*%X)%*%t(X)%*%Y)
+            } else {
+              X1 <- X%*%solve(t(D)%*%D)%*%t(D)
+              coef <- as.numeric(coef(glmnet::glmnet(x=X1,y=Y,intercept=FALSE,
+                                                     family='gaussian',lambda=1/sqrt(length(Y)))))
+              coef <- coef[-1]
+              mu.ewsl[I,it,] <- solve(t(D)%*%D)%*%t(D)%*%coef
+            }
         }
         
         for(it in 1:n) { 
@@ -177,7 +194,15 @@ SpTeMnt_EWSL <- function(y,st,type,ARL0=200,lambda=0.1,B=1000,bs=5,T=1,ht=NULL,h
             rowsum.D[i+m[1]] <- sum(D[i+m[1],]^2)
         }
         D <- D[which(rowsum.D!=0),]
-        mu.ewsl.ic[I,1,] <- c(coef(genlasso::genlasso(y=Y,X=X,D=D),lambda=1)$beta)
+        if(dim(D)[1]==0) {
+          mu.ewsl.ic[I,1,] <- c(solve(t(X)%*%X)%*%t(X)%*%Y)
+        } else {
+          X1 <- X%*%solve(t(D)%*%D)%*%t(D)
+          coef <- as.numeric(coef(glmnet::glmnet(x=X1,y=Y,intercept=FALSE,
+                                                 family='gaussian',lambda=1/sqrt(length(Y)))))
+          coef <- coef[-1]
+          mu.ewsl.ic[I,1,] <- solve(t(D)%*%D)%*%t(D)%*%coef
+        }
         INDEX <- rep(1,length(Y))
         
         ## time > 1
@@ -212,7 +237,15 @@ SpTeMnt_EWSL <- function(y,st,type,ARL0=200,lambda=0.1,B=1000,bs=5,T=1,ht=NULL,h
                 rowsum.D[i+m[it]] <- sum(D[i+m[it],]^2)
             }
             D <- D[which(rowsum.D!=0),]
-            mu.ewsl.ic[I,it,] <- c(coef(genlasso::genlasso(y=Y,X=X,D=D),lambda=1)$beta)
+            if(dim(D)[1]==0) {
+              mu.ewsl.ic[I,it,] <- c(solve(t(X)%*%X)%*%t(X)%*%Y)
+            } else {
+              X1 <- X%*%solve(t(D)%*%D)%*%t(D)
+              coef <- as.numeric(coef(glmnet::glmnet(x=X1,y=Y,intercept=FALSE,
+                                                     family='gaussian',lambda=1/sqrt(length(Y)))))
+              coef <- coef[-1]
+              mu.ewsl.ic[I,it,] <- solve(t(D)%*%D)%*%t(D)%*%coef
+            }
         }
         
         for(it in 1:n) { 

@@ -13,8 +13,8 @@ discussed in Qiu and Yang (2021 and 2022) and Yang and Qiu (2020).
 \tabular{rl}{
 Package: \tab SpTe2M\cr
 Type: \tab Package\cr
-Version: \tab 1.0.0\cr
-Date: \tab 2022-06-03\cr
+Version: \tab 1.0.1\cr
+Date: \tab 2022-08-12\cr
 License: \tab GPL (>= 3)\cr
 }
 }
