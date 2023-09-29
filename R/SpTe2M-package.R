@@ -1,0 +1,39 @@
+#' @title Nonparametric Modeling and Monitoring of Spatio-Temporal Data
+#' @name SpTe2M-package
+#' @docType package
+#' @author  Kai Yang \email{kayang@mcw.edu} and Peihua Qiu
+#' Maintainer: Kai Yang <kayang@mcw.edu>
+#' @description 
+#' Spatio-temporal data have become increasingly popular in many research fields. 
+#' Such data often have complex structures that are difficult to describe and 
+#' estimate. This package provides reliable tools for modeling complicated 
+#' spatio-temporal data. It also includes tools of online process monitoring to 
+#' detect possible change-points in a spatio-temporal process over time. More 
+#' specifically, it implements the nonparametric spatio-temporal data modeling 
+#' methods described in Yang and Qiu (2018, 2019, and 2022), as well as the 
+#' online spatio-temporal process monitoring methods discussed in
+#' Qiu and Yang (2021 and 2023) and Yang and Qiu (2020).
+#' @references 
+#' Qiu, P. and Yang, K. (2021). Effective Disease Surveillance by Using 
+#' Covariate Information. \emph{Statistics in Medicine}, \strong{40}, 5725-5745. 
+#' @references
+#' Qiu, P. and Yang, K. (2023). Spatio-Temporal Process Monitoring Using 
+#' Exponentially Weighted Spatial LASSO. \emph{Journal of Quality Technology}, 
+#' \strong{55}, 163-180.
+#' @references 
+#' Yang, K. and Qiu, P. (2018). Spatio-Temporal Incidence Rate Data Analysis by 
+#' Nonparametric Regression. \emph{Statistics in Medicine}, \strong{37}, 2094-2107.
+#' @references 
+#' Yang, K. and Qiu, P. (2019). Nonparametric Estimation of the Spatio-Temporal 
+#' Covariance Structure. \emph{Statistics in Medicine}, \strong{38}, 4555-4565.
+#' @references 
+#' Yang, K. and Qiu, P. (2020). Online Sequential Monitoring of Spatio-Temporal 
+#' Disease Incidence Rates. \emph{IISE Transactions}, \strong{52}, 1218-1233.
+#' @references
+#' Yang, K. and Qiu, P. (2022). A Three-Step Local Smoothing Approach for 
+#' Estimating the Mean and Covariance Functions of Spatio-Temporal Data. 
+#' \emph{Annals of the Institute of Statistical Mathematics}, \strong{74}, 49-68.
+#' @keywords package
+"_PACKAGE"
+
+NULL

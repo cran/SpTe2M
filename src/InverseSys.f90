@@ -34,25 +34,25 @@ subroutine cholesky ( a, n, nn, u, nullty, ifault )
 !
 !  Parameters:
 !
-!    Input, real ( kind = 8 ) A((N*(N+1))/2), a positive definite matrix
+!    Input, real ( 8 ) A((N*(N+1))/2), a positive definite matrix
 !    stored by rows in lower triangular form as a one dimensional array,
 !    in the sequence
 !    A(1,1),
 !    A(2,1), A(2,2),
 !    A(3,1), A(3,2), A(3,3), and so on.
 !
-!    Input, integer ( kind = 4 ) N, the order of A.
+!    Input, integer ( 4 ) N, the order of A.
 !
-!    Input, integer ( kind = 4 ) NN, the dimension of A, (N*(N+1))/2.
+!    Input, integer ( 4 ) NN, the dimension of A, (N*(N+1))/2.
 !
-!    Output, real ( kind = 8 ) U((N*(N+1))/2), an upper triangular matrix,
+!    Output, real ( 8 ) U((N*(N+1))/2), an upper triangular matrix,
 !    stored by columns, which is the Cholesky factor of A.  The program is
 !    written in such a way that A and U can share storage.
 !
-!    Output, integer ( kind = 4 ) NULLTY, the rank deficiency of A.
+!    Output, integer ( 4 ) NULLTY, the rank deficiency of A.
 !    If NULLTY is zero, the matrix is judged to have full rank.
 !
-!    Output, integer ( kind = 4 ) IFAULT, an error indicator.
+!    Output, integer ( 4 ) IFAULT, an error indicator.
 !    0, no error was detected;
 !    1, if N < 1;
 !    2, if A is not positive semi-definite.
@@ -60,32 +60,32 @@ subroutine cholesky ( a, n, nn, u, nullty, ifault )
 !
 !  Local Parameters:
 !
-!    Local, real ( kind = 8 ) ETA, should be set equal to the smallest positive
+!    Local, real ( 8 ) ETA, should be set equal to the smallest positive
 !    value such that 1.0 + ETA is calculated as being greater than 1.0 in the
 !    accuracy being used.
 !
   implicit none
 
-  integer ( kind = 4 ) nn
+  integer ( 4 ) nn
 
-  real ( kind = 8 ) a(nn)
-  real ( kind = 8 ), parameter :: eta = 1.0D-09
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) icol
-  integer ( kind = 4 ) ifault
-  integer ( kind = 4 ) ii
-  integer ( kind = 4 ) irow
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) kk
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) m
-  integer ( kind = 4 ) n
-  integer ( kind = 4 ) nullty
-!  real ( kind = 8 ) rsq
-  real ( kind = 8 ) u(nn)
-  real ( kind = 8 ) w
-  real ( kind = 8 ) x
+  real ( 8 ) a(nn)
+  real ( 8 ), parameter :: eta = 1.0D-09
+  integer ( 4 ) i
+  integer ( 4 ) icol
+  integer ( 4 ) ifault
+  integer ( 4 ) ii
+  integer ( 4 ) irow
+  integer ( 4 ) j
+  integer ( 4 ) k
+  integer ( 4 ) kk
+  integer ( 4 ) l
+  integer ( 4 ) m
+  integer ( 4 ) n
+  integer ( 4 ) nullty
+!  real ( 8 ) rsq
+  real ( 8 ) u(nn)
+  real ( 8 ) w
+  real ( 8 ) x
 
   ifault = 0
   nullty = 0
@@ -200,51 +200,51 @@ subroutine syminv ( a, n, c, w, nullty, ifault )
 !
 !  Parameters:
 !
-!    Input, real ( kind = 8 ) A((N*(N+1))/2), a positive definite matrix stored
+!    Input, real ( 8 ) A((N*(N+1))/2), a positive definite matrix stored
 !    by rows in lower triangular form as a one dimensional array, in the 
 !    sequence
 !    A(1,1),
 !    A(2,1), A(2,2),
 !    A(3,1), A(3,2), A(3,3), and so on.
 !
-!    Input, integer ( kind = 4 ) N, the order of A.
+!    Input, integer ( 4 ) N, the order of A.
 !
-!    Output, real ( kind = 8 ) C((N*(N+1))/2), the inverse of A, or generalized
+!    Output, real ( 8 ) C((N*(N+1))/2), the inverse of A, or generalized
 !    inverse if A is singular, stored using the same storage scheme employed
 !    for A.  The program is written in such a way that A and U can share 
 !    storage.
 !
-!    Workspace, real ( kind = 8 ) W(N).
+!    Workspace, real ( 8 ) W(N).
 !
-!    Output, integer ( kind = 4 ) NULLTY, the rank deficiency of A.  If NULLTY 
+!    Output, integer ( 4 ) NULLTY, the rank deficiency of A.  If NULLTY 
 !    is zero, the matrix is judged to have full rank.
 !
-!    Output, integer ( kind = 4 ) IFAULT, error indicator.
+!    Output, integer ( 4 ) IFAULT, error indicator.
 !    0, no error detected.
 !    1, N < 1.
 !    2, A is not positive semi-definite.
 !
   implicit none
 
-  integer ( kind = 4 ) n
+  integer ( 4 ) n
 
-  real ( kind = 8 ) a((n*(n+1))/2)
-  real ( kind = 8 ) c((n*(n+1))/2)
-  integer ( kind = 4 ) i
-  integer ( kind = 4 ) icol
-  integer ( kind = 4 ) ifault
-  integer ( kind = 4 ) irow
-  integer ( kind = 4 ) j
-  integer ( kind = 4 ) jcol
-  integer ( kind = 4 ) k
-  integer ( kind = 4 ) l
-  integer ( kind = 4 ) mdiag
-  integer ( kind = 4 ) ndiag
-  integer ( kind = 4 ) nn
-  integer ( kind = 4 ) nrow
-  integer ( kind = 4 ) nullty
-  real ( kind = 8 ) w(n)
-  real ( kind = 8 ) x
+  real ( 8 ) a((n*(n+1))/2)
+  real ( 8 ) c((n*(n+1))/2)
+  integer ( 4 ) i
+  integer ( 4 ) icol
+  integer ( 4 ) ifault
+  integer ( 4 ) irow
+  integer ( 4 ) j
+  integer ( 4 ) jcol
+  integer ( 4 ) k
+  integer ( 4 ) l
+  integer ( 4 ) mdiag
+  integer ( 4 ) ndiag
+  integer ( 4 ) nn
+  integer ( 4 ) nrow
+  integer ( 4 ) nullty
+  real ( 8 ) w(n)
+  real ( 8 ) x
 
   ifault = 0
 
