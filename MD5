@@ -1,4 +1,4 @@
-6f23e903e072c0625b7164ab9f6f52ed *DESCRIPTION
+d5aed1c64018e4cfe18322d034ccaa19 *DESCRIPTION
 44d0b9f45a55bdc35117f6c46daccb6b *NAMESPACE
 38c3a1d695af8aa4a395018e19b69656 *R/SpTe2M-package.R
 b3993138f4240db9654534e87bad9a6d *R/cv_mspe.R
@@ -19,8 +19,8 @@ b62fec7f002cc0ecb1548ec5961cd80f *data/ili_dat.rda
 622ef6f2b5d08846e4fa5b040ff6b041 *data/pm25_dat.rda
 b338de3e943304f7d4f550504d687efd *data/sim_dat.rda
 9bab155ee8f86a15b4d94e901151ef75 *inst/doc/SpTe2M.R
-6581c08c63ae3d16853859c39c3f43f5 *inst/doc/SpTe2M.Rmd
-0cd47d0240655dfc2516ac2103be5005 *inst/doc/SpTe2M.html
+1020745e743d15121b8f9384a6ffe185 *inst/doc/SpTe2M.Rmd
+72f975cede71120df4b9048f5d4ec187 *inst/doc/SpTe2M.html
 f5b937000d07dabde9d8634ee8e80969 *man/SpTe2M-package.Rd
 d086c72f4f5da76d879c843c4be7958e *man/cv_mspe.Rd
 5d25a0e23396ae2d53ac3a9bce5a1296 *man/ili_dat.Rd
@@ -47,4 +47,4 @@ ab46313961d7c82e3aa174a5ce8d9d81 *vignettes/ILIMean.png
 b21be0765abc887a92f5f59ab5c9d22e *vignettes/ILIMntCUSUM.png
 af0262c92f375bf362360a5021efc6a4 *vignettes/ILIMntEWMAC.png
 0e964c560b507cd0a2b62bddeb8398f6 *vignettes/ILIMntEWSL.png
-6581c08c63ae3d16853859c39c3f43f5 *vignettes/SpTe2M.Rmd
+1020745e743d15121b8f9384a6ffe185 *vignettes/SpTe2M.Rmd

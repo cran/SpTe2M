@@ -1,6 +1,6 @@
 ---
 title: "SpTe2M: Nonparametric Modeling and Monitoring of Spatio-Temporal Data"
-author: "Kai Yang, kayang@mcw.edu"
+author: "Kai Yang, Peihua Qiu"
 date: "September 29, 2023"
 output: 
   rmarkdown::html_vignette:
@@ -330,7 +330,7 @@ regions that are spatially clustered. To take into account this spatial feature,
 the EWSL chart was developed for spatio-temporal process monitoring, which is
 effective in cases when anomalies occur in spatially clustered regions.
 
-Finally, we demonstrate the application of the EWSL chart (cf., Qiu and Yang 2023) 
+Next, we demonstrate the application of the EWSL chart (cf., Qiu and Yang 2023) 
 by using the function sptemnt_ewsl(). To this end, let us use the code as follows:
 ```{r, eval=FALSE}
 ili.ewsl <- sptemnt_ewsl(y,st,type,ht=0.05,hs=6.5,gt=0.25,gs=1.5)
